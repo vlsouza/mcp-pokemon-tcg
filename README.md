@@ -46,6 +46,14 @@ go build -o pokemon-tcg-mcp .         # binary for Claude Desktop config
 go vet ./...
 ```
 
+Or with `make` (`make help` lists every target):
+
+```bash
+make build          # Linux/macOS binary
+make build-windows  # cross-compiled .exe for Claude Desktop on Windows
+make check          # fmt-check + vet + test, before committing
+```
+
 No API key is required for light usage (1000 requests/day, 30/min). To raise
 that limit, set `POKEMONTCG_API_KEY` in the environment — never commit it.
 

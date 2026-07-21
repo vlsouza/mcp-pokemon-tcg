@@ -109,6 +109,11 @@ go build -o pokemon-tcg-mcp .         # binary for Claude Desktop config
 go vet ./...
 ```
 
+Or via `make` (see `Makefile` for the full list, `make help` to list them):
+`make run`, `make build`, `make build-windows` (cross-compile for Claude
+Desktop on Windows), `make check` (fmt-check + vet + test — run before every
+commit).
+
 ## Claude Desktop config (for the README / demo)
 
 ```json
