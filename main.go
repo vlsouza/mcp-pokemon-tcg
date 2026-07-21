@@ -18,6 +18,9 @@ import (
 const (
 	baseURL  = "https://api.pokemontcg.io/v2"
 	cacheTTL = 10 * time.Minute
+
+	maxAttempts = 3
+	retryWait   = 500 * time.Millisecond
 )
 
 // --- cache -----------------------------------------------------------------
@@ -63,6 +66,8 @@ var (
 
 // fetchJSON performs a GET against the Pokemon TCG API, serving from the
 // shared cache when the request path+query was fetched within cacheTTL.
+// pokemontcg.io is known to return intermittent, transient 5xx errors, so
+// requests are retried a few times with a short backoff before giving up.
 func fetchJSON(ctx context.Context, path string, query url.Values) ([]byte, error) {
 	fullURL := baseURL + path
 	if len(query) > 0 {
@@ -73,9 +78,35 @@ func fetchJSON(ctx context.Context, path string, query url.Values) ([]byte, erro
 		return data, nil
 	}
 
+	var lastErr error
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		body, retryable, err := doFetch(ctx, fullURL)
+		if err == nil {
+			apiCache.set(fullURL, body)
+			return body, nil
+		}
+
+		lastErr = err
+		if !retryable || attempt == maxAttempts {
+			break
+		}
+
+		select {
+		case <-time.After(retryWait * time.Duration(attempt)):
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		}
+	}
+	return nil, lastErr
+}
+
+// doFetch performs a single HTTP attempt. retryable is true for errors worth
+// retrying (network failures, 5xx) and false for errors that won't improve
+// on retry (4xx, response body issues).
+func doFetch(ctx context.Context, fullURL string) (body []byte, retryable bool, err error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fullURL, nil)
 	if err != nil {
-		return nil, err
+		return nil, false, err
 	}
 	if apiKey := os.Getenv("POKEMONTCG_API_KEY"); apiKey != "" {
 		req.Header.Set("X-Api-Key", apiKey)
@@ -83,21 +114,20 @@ func fetchJSON(ctx context.Context, path string, query url.Values) ([]byte, erro
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("pokemontcg.io request failed: %w", err)
+		return nil, true, fmt.Errorf("pokemontcg.io request failed: %w", err)
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
+	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("reading pokemontcg.io response: %w", err)
+		return nil, true, fmt.Errorf("reading pokemontcg.io response: %w", err)
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("pokemontcg.io returned %s for %s: %s", resp.Status, fullURL, string(body))
+		return nil, resp.StatusCode >= 500, fmt.Errorf("pokemontcg.io returned %s for %s: %s", resp.Status, fullURL, string(respBody))
 	}
 
-	apiCache.set(fullURL, body)
-	return body, nil
+	return respBody, false, nil
 }
 
 // --- API response shapes (subset of fields we care about) ------------------
