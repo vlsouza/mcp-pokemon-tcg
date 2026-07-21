@@ -1,9 +1,18 @@
 # pokemon-tcg-rotom-mcp
 
+<img src="assets/rotom.png" alt="Rotom" width="180" align="right">
+
 A small MCP server in Go that exposes the [Pokemon TCG API](https://pokemontcg.io)
 (`pokemontcg.io`) as tools for any MCP client (Claude Desktop, Claude Code,
 etc). Built as a portfolio piece to show MCP + Go, not tied to any resale
 business, no overengineering.
+
+### Why "Rotom"?
+
+Rotom is the Pokemon that possesses electronic devices to operate them from
+the inside, a Pokedex, a lamp, a mower. That's basically what this server
+does to Claude: it possesses the Pokemon TCG API and hands it back as tools
+Claude can call directly.
 
 ## Why this one
 
