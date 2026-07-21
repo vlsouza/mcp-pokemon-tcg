@@ -113,20 +113,11 @@ that limit, set `POKEMONTCG_API_KEY` in the environment — never commit it.
 }
 ```
 
-## Running on a legacy API — and the path off it
+## If the 500s get worse: migrating to Scrydex
 
-This server talks to `pokemontcg.io` v2, the free, unauthenticated API
-described above. As of this writing, that API is in maintenance mode: its
-team's energy has visibly moved to [Scrydex](https://scrydex.com/), a paid
-successor covering the same Pokémon card/set data plus more games. That
-shift is the most likely root cause of the intermittent 500s `fetchJSON`
-retries around — a free legacy service with no one actively firefighting it.
-
-pokemontcg.io still works and is still free, so it's the right call for a
-v1/portfolio project: no signup, no cost, no vendor lock-in. If the error
-rate keeps climbing, migrating `baseURL` in `main.go` to Scrydex is the
-natural fix — but it isn't a drop-in swap. Scrydex requires an API key
-(paid, credit-based, not a free tier) and its response schema's
+Not a drop-in swap. [Scrydex](https://scrydex.com/) requires an API key
+(paid, credit-based — no free tier), and its response schema's
 compatibility with pokemontcg.io v2 isn't verified here. That's a real
-trade — paid and less-tested vs. free and flaky — not worth making until
-the current retry-and-cache approach stops being good enough.
+trade — paid and less-tested vs. free and flaky — not worth making while
+caching + retry keep this server usable. Revisit `baseURL` in `main.go` if
+that stops being true.
