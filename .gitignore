@@ -1,0 +1,10 @@
+# Build artifacts
+pokemon-tcg-mcp
+*.exe
+
+# Go tooling
+*.test
+*.out
+
+# Environment
+.env
