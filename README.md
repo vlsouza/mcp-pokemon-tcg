@@ -1,4 +1,4 @@
-# pokemon-tcg-mcp
+# pokemon-tcg-rotom-mcp
 
 A small MCP server in Go that exposes the [Pokemon TCG API](https://pokemontcg.io)
 (`pokemontcg.io`) as tools for any MCP client (Claude Desktop, Claude Code,
@@ -86,7 +86,7 @@ cache hit is a guaranteed win, several million times faster.
 ```bash
 go mod tidy
 go run .                              # runs on stdio
-go build -o pokemon-tcg-mcp .         # binary for Claude Desktop config
+go build -o pokemon-tcg-rotom-mcp .   # binary for Claude Desktop config
 go vet ./...
 ```
 
@@ -106,8 +106,8 @@ that limit, set `POKEMONTCG_API_KEY` in the environment; never commit it.
 ```json
 {
   "mcpServers": {
-    "pokemon-tcg": {
-      "command": "/absolute/path/to/pokemon-tcg-mcp"
+    "pokemon-tcg-rotom-mcp": {
+      "command": "/absolute/path/to/pokemon-tcg-rotom-mcp"
     }
   }
 }

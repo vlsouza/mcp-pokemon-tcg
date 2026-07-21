@@ -1,5 +1,5 @@
-BINARY      := pokemon-tcg-mcp
-WINDOWS_BIN := pokemon-tcg-mcp.exe
+BINARY      := pokemon-tcg-rotom-mcp
+WINDOWS_BIN := pokemon-tcg-rotom-mcp.exe
 
 .DEFAULT_GOAL := help
 

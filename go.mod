@@ -1,4 +1,4 @@
-module github.com/vlsouza/mcp-pokemon-tcg
+module github.com/vlsouza/pokemon-tcg-rotom-mcp
 
 go 1.25.12
 

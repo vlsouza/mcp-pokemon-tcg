@@ -1,4 +1,4 @@
-# pokemon-tcg-mcp
+# pokemon-tcg-rotom-mcp
 
 ## What this is
 
@@ -105,7 +105,7 @@ UX" — worth calling out explicitly in the README and the LinkedIn post.
 ```bash
 go mod tidy
 go run .                              # run on stdio
-go build -o pokemon-tcg-mcp .         # binary for Claude Desktop config
+go build -o pokemon-tcg-rotom-mcp .   # binary for Claude Desktop config
 go vet ./...
 ```
 
@@ -119,8 +119,8 @@ commit).
 ```json
 {
   "mcpServers": {
-    "pokemon-tcg": {
-      "command": "/absolute/path/to/pokemon-tcg-mcp"
+    "pokemon-tcg-rotom-mcp": {
+      "command": "/absolute/path/to/pokemon-tcg-rotom-mcp"
     }
   }
 }

@@ -564,7 +564,7 @@ func listRarities(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*m
 // --- main ------------------------------------------------------------------
 
 func main() {
-	server := mcp.NewServer(&mcp.Implementation{Name: "pokemon-tcg", Version: "v1.0.0"}, nil)
+	server := mcp.NewServer(&mcp.Implementation{Name: "pokemon-tcg-rotom-mcp", Version: "v1.0.0"}, nil)
 
 	mcp.AddTool(server, &mcp.Tool{
 		Name:        "search_cards",
