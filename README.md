@@ -90,6 +90,52 @@ cache hit is a guaranteed win, several million times faster.
 9. **`list_supertypes()`:** Pokemon, Trainer, Energy.
 10. **`list_rarities()`:** all card rarities (Common, Rare Holo, etc).
 
+## Example calls
+
+Real output, captured from the server itself.
+
+**`get_card({"id": "base1-4"})`**
+
+```json
+{
+  "artist": "Mitsuhiro Arita",
+  "largeImage": "https://images.pokemontcg.io/base1/4_hires.png",
+  "marketPrice": 800.43,
+  "name": "Charizard",
+  "rarity": "Rare Holo",
+  "set": "Base"
+}
+```
+
+**`get_card_prices({"id": "base1-4"})`**
+
+```json
+{
+  "cardmarket": {
+    "averageSellPriceEUR": 1531,
+    "lowPriceEUR": 799,
+    "trendPriceEUR": 4184.6,
+    "url": "https://prices.pokemontcg.io/cardmarket/base1-4"
+  },
+  "tcgplayer": {
+    "holofoil": { "high": 2600.25, "low": 510, "market": 800.43, "mid": 784.78 },
+    "url": "https://prices.pokemontcg.io/tcgplayer/base1-4"
+  }
+}
+```
+
+**`search_cards({"name": "pikachu", "set": "Base"})`**
+
+```json
+{
+  "cards": [
+    { "id": "base1-58", "name": "Pikachu", "number": "58", "rarity": "Common", "set": "Base", "smallImage": "https://images.pokemontcg.io/base1/58.png" },
+    { "id": "base4-87", "name": "Pikachu", "number": "87", "rarity": "Common", "set": "Base Set 2", "smallImage": "https://images.pokemontcg.io/base4/87.png" },
+    { "id": "ecard1-124", "name": "Pikachu", "number": "124", "rarity": "Common", "set": "Expedition Base Set", "smallImage": "https://images.pokemontcg.io/ecard1/124.png" }
+  ]
+}
+```
+
 ## Running it
 
 ```bash
