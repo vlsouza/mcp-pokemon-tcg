@@ -469,50 +469,6 @@ func getCardLegality(ctx context.Context, req *mcp.CallToolRequest, in GetCardLe
 	}, nil
 }
 
-// --- list_types / list_subtypes / list_supertypes / list_rarities ---------
-
-type ListStringsOutput struct {
-	Values []string `json:"values" jsonschema:"the list of values"`
-}
-
-func fetchStringList(ctx context.Context, path string) (ListStringsOutput, error) {
-	body, err := fetchJSON(ctx, path, nil)
-	if err != nil {
-		return ListStringsOutput{}, err
-	}
-
-	var parsed struct {
-		Data []string `json:"data"`
-	}
-	if err := json.Unmarshal(body, &parsed); err != nil {
-		return ListStringsOutput{}, fmt.Errorf("parsing pokemontcg.io response: %w", err)
-	}
-
-	return ListStringsOutput{Values: parsed.Data}, nil
-}
-
-type NoInput struct{}
-
-func listTypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
-	out, err := fetchStringList(ctx, "/types")
-	return nil, out, err
-}
-
-func listSubtypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
-	out, err := fetchStringList(ctx, "/subtypes")
-	return nil, out, err
-}
-
-func listSupertypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
-	out, err := fetchStringList(ctx, "/supertypes")
-	return nil, out, err
-}
-
-func listRarities(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
-	out, err := fetchStringList(ctx, "/rarities")
-	return nil, out, err
-}
-
 // --- list_sets ------------------------------------------------------------
 
 type ListSetsInput struct {
@@ -559,6 +515,50 @@ func listSets(ctx context.Context, req *mcp.CallToolRequest, in ListSetsInput) (
 		})
 	}
 	return nil, out, nil
+}
+
+// --- list_types / list_subtypes / list_supertypes / list_rarities ---------
+
+type ListStringsOutput struct {
+	Values []string `json:"values" jsonschema:"the list of values"`
+}
+
+func fetchStringList(ctx context.Context, path string) (ListStringsOutput, error) {
+	body, err := fetchJSON(ctx, path, nil)
+	if err != nil {
+		return ListStringsOutput{}, err
+	}
+
+	var parsed struct {
+		Data []string `json:"data"`
+	}
+	if err := json.Unmarshal(body, &parsed); err != nil {
+		return ListStringsOutput{}, fmt.Errorf("parsing pokemontcg.io response: %w", err)
+	}
+
+	return ListStringsOutput{Values: parsed.Data}, nil
+}
+
+type NoInput struct{}
+
+func listTypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
+	out, err := fetchStringList(ctx, "/types")
+	return nil, out, err
+}
+
+func listSubtypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
+	out, err := fetchStringList(ctx, "/subtypes")
+	return nil, out, err
+}
+
+func listSupertypes(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
+	out, err := fetchStringList(ctx, "/supertypes")
+	return nil, out, err
+}
+
+func listRarities(ctx context.Context, req *mcp.CallToolRequest, in NoInput) (*mcp.CallToolResult, ListStringsOutput, error) {
+	out, err := fetchStringList(ctx, "/rarities")
+	return nil, out, err
 }
 
 // --- main ------------------------------------------------------------------
