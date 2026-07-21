@@ -3,9 +3,7 @@
 ## What this is
 
 A simple, clean MCP server in Go that exposes the Pokemon TCG API
-(pokemontcg.io) as tools for any MCP client. Built as a portfolio/LinkedIn
-piece to show MCP + Go skills — not tied to the resale business, no
-overengineering.
+(pokemontcg.io) as tools for any MCP client.
 
 Similar projects already exist (Python and TypeScript versions), so the
 differentiators here are simply: it's Go, and it has a proper in-memory
