@@ -25,6 +25,17 @@ respects the API's rate limit and its own client's UX."
    if available.
 3. **`list_sets(series?)`** — list sets, most recent first, optionally
    filtered by series name.
+4. **`get_set(id)`** — full detail for one set by id (e.g. `base1`): name,
+   series, release date, printed/total card counts, PTCGO code, logo image.
+5. **`get_card_prices(id)`** — full raw price breakdown for one card:
+   TCGPlayer (USD, by finish) and Cardmarket (EUR). No graded (PSA/BGS)
+   prices — the API doesn't have that data.
+6. **`get_card_legality(id)`** — Standard/Expanded/Unlimited tournament
+   legality for one card.
+7. **`list_types()`** — all Pokemon TCG energy types (Fire, Water, etc).
+8. **`list_subtypes()`** — all card subtypes (Stage 1, VMAX, EX, etc).
+9. **`list_supertypes()`** — Pokemon, Trainer, Energy.
+10. **`list_rarities()`** — all card rarities (Common, Rare Holo, etc).
 
 ## Running it
 
