@@ -35,8 +35,32 @@ cache instead of hitting the API on every call.
 3. **`list_sets(series?)`**
    List sets, most recent first, optionally filtered by series name.
 
-Keep it to these three. No deck legality, no price comparison — that's
-future scope, not v1.
+4. **`get_set(id)`**
+   Full detail for one set by id (e.g. `base1`): name, series, release
+   date, printed/total card counts, PTCGO code, logo image.
+
+5. **`get_card_prices(id)`**
+   Full raw price breakdown for one card: TCGPlayer (USD, by finish —
+   normal/holofoil/reverse holo/1st edition holo) and Cardmarket (EUR).
+   No graded (PSA/BGS) prices — the API doesn't have that data.
+
+6. **`get_card_legality(id)`**
+   Standard/Expanded/Unlimited tournament legality for one card.
+
+7. **`list_types()`**
+   All Pokemon TCG energy types (Fire, Water, etc).
+
+8. **`list_subtypes()`**
+   All card subtypes (Stage 1, VMAX, EX, etc).
+
+9. **`list_supertypes()`**
+   Pokemon, Trainer, Energy.
+
+10. **`list_rarities()`**
+    All card rarities (Common, Rare Holo, etc).
+
+Ten tools, all backed by endpoints/fields the pokemontcg.io API already
+exposes — no new data sources, no derived/invented functionality.
 
 ## The one thing that makes this not a toy wrapper: caching
 
