@@ -1,4 +1,4 @@
-# pokemon-tcg-rotom-mcp
+# pokemon-tcg-rotom-mcp ⚡
 
 <img src="assets/rotom.png" alt="Rotom" width="180" align="right">
 
